@@ -175,7 +175,18 @@ class Dome9(object):
 
 
     def create_aws_account(self, name, secret, roleArn):
-        account = { "vendor": "aws", "name": "test", "credentials": { "type": "RoleBased", "secret": "", "arn": "" }, "fullProtection": False, "allowReadOnly": True, "lambdaScanner": False }
+        account = {
+            "vendor": "aws",
+            "name": "test",
+            "credentials": {
+                "type": "RoleBased",
+                "secret": "",
+                "arn": ""
+            },
+            "fullProtection": False,
+            "allowReadOnly": True,
+            "lambdaScanner": False
+        }
         account['name'] = name
         account['credentials']['secret'] = secret
         account['credentials']['arn'] = roleArn
@@ -373,10 +384,10 @@ class Dome9(object):
         """
 
         bundle = {
-                'id': rulesetId,
-                'cloudAccountId': cloudAccountId,
-                'requestId': str(uuid.uuid4())
-                }
+            'id': rulesetId,
+            'cloudAccountId': cloudAccountId,
+            'requestId': str(uuid.uuid4())
+        }
         if region:
             bundle['region'] = region
 

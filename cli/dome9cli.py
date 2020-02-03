@@ -33,12 +33,12 @@ class Dome9CLI():
 
     def _pprint(self, dataset, headers):
         output = list()
-            for item in dataset:
-                rows = list()
-                    for key in headers:
-                        rows.append(item[key])
-                    output.append(rows)
-            print(tabulate(output, headers=headers, tablefmt=self._tablefmt))
+        for item in dataset:
+            rows = list()
+            for key in headers:
+                rows.append(item[key])
+            output.append(rows)
+        print(tabulate(output, headers=headers, tablefmt=self._tablefmt))
 
 
     # ------------------------------------------
@@ -94,10 +94,10 @@ class Dome9CLI():
     # ------------------------------------------
 
     def list_rulesets(self):
-            '''List compliance rulesets
-            '''
-            data = self._dome9.list_rulesets()
-            self._pprint(data, ['id', 'cloudVendor', 'name'])
+        '''List compliance rulesets
+        '''
+        data = self._dome9.list_rulesets()
+        self._pprint(data, ['id', 'cloudVendor', 'name'])
 
 
     def get_ruleset(self, id):
@@ -121,13 +121,13 @@ class Dome9CLI():
 
     def update_ruleset(self, jsonFile):
         ruleset = json.loads(self._read_file(jsonFile))
-            remote_ruleset = filter(lambda x: ruleset['name'] in x['name'], self._dome9.list_rulesets())
-            if remote_ruleset:
-                ruleset['id'] = remote_ruleset[0]['id']
-                    self._dome9.update_ruleset(ruleset)
-                    print('Ruleset updated with ID: {}'.format(ruleset['id']))
-            else:
-                print('Ruleset "{}" not found'.format(ruleset['name']))
+        remote_ruleset = filter(lambda x: ruleset['name'] in x['name'], self._dome9.list_rulesets())
+        if remote_ruleset:
+            ruleset['id'] = remote_ruleset[0]['id']
+            elf._dome9.update_ruleset(ruleset)
+            print('Ruleset updated with ID: {}'.format(ruleset['id']))
+        else:
+            print('Ruleset "{}" not found'.format(ruleset['name']))
 
 
     def delete_ruleset(self, id):
