@@ -388,9 +388,11 @@ class Dome9(object):
             'cloudAccountId': cloudAccountId,
             'requestId': str(uuid.uuid4())
         }
+
         if region:
             bundle['region'] = region
 
         results = self._post(route='assessment/bundleV2', payload=json.dumps(bundle))
 
         return results
+

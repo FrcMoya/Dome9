@@ -22,6 +22,7 @@ class Agile(object):
         with open(path) as x:
             return yaml.load(x.read())
 
+
     @classmethod
     def _export_result(cls, obj, file, content):
         filename = file.lower().replace(' ', '_')
@@ -30,11 +31,12 @@ class Agile(object):
 
         if not os.path.exists(directory):
             os.makedirs(directory)
-        
+
         with open(filepath, 'w') as f:
             f.write(content)
 
         print('[+] {file}'.format(file=filepath))
+
 
     @classmethod
     def _load_compliance_ruleset_template(cls, name, desc, vend, type, rules):
@@ -49,6 +51,7 @@ class Agile(object):
         }
         return template
 
+
     @classmethod
     def _load_remediation_template(cls, rulesetId, ruleName, comment, cloudbots, ruleLogicHash, accountId=None):
         template = {
@@ -59,15 +62,17 @@ class Agile(object):
             "comment": comment,
             "cloudBots": cloudbots,
         }
+
         if accountId:
             template["cloudAccountId"]= accountId
+
         return template
 
 
     # ------------------------------------
     #           PUBLIC METHODS
     # ------------------------------------
-    
+
     def generateComplianceRulesets(self, templateName='default', rulesetKey=None):
         templates = self._read_yml_file('Compliance', 'templates', templateName)
         for template in templates:
@@ -87,7 +92,7 @@ class Agile(object):
                         rules = filter(lambda x: x['level'] in ['minimum', 'medium', 'advanced'], env_rules)
                 else:
                     rules = filter(lambda x: template['key'] in x['templates'], env_rules)
-                
+
                 map(lambda x: x.pop('templates') ,rules)
                 map(lambda x: x.pop('level') ,rules)
 
@@ -142,3 +147,4 @@ class Agile(object):
 
 if __name__ == '__main__':
     fire.Fire(Agile())
+
